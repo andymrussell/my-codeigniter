@@ -1,5 +1,3 @@
-<br/>
-
 <?php
 echo $row;
 ?>

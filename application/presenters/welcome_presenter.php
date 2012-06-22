@@ -12,7 +12,7 @@ class Welcome_Presenter extends Presenter
 
 	public function email()
 	{
-		return $this->welcome_presenter['email'] ? : "N/A";
+		return (isset($this->welcome_presenter->email) ? $this->welcome_presenter->email : "N/A");
 	}
 
 }

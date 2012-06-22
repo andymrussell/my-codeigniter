@@ -2,8 +2,10 @@ This is the welcome index
 
 <?php
 
-//echo $temp->name();
-//echo $temp->email();
+echo '<br/>';
+echo $temp->name();
+echo '<br/>';
+echo $temp->email();
 
 
 
@@ -13,7 +15,6 @@ $data = array(
 	'test3',
 );
 
-//echo partial('test', $data, TRUE);
+echo partial('test', $data, TRUE);
+
 ?>
-
-
