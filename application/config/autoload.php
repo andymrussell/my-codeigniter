@@ -37,7 +37,9 @@
 |
 */
 
-$autoload['packages'] = array();
+$autoload['packages'] = array(
+		APPPATH.'third_party/MX/'
+		);
 
 
 /*
@@ -52,7 +54,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('format');
 
 
 /*
@@ -110,6 +112,38 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
+
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Modules Locations
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['modules_locations'] = array('module1', 'module2');
+|
+*/
+
+$config['modules_locations'] = array(
+        APPPATH.'modules/' => '../modules/',
+    );
+
+
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Spark
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['sparks'] = array('spark1/v1.0.0', 'spark2');
+|
+*/
+$autoload['sparks'] = array();
+
+
+@include_once(APPPATH."presenters/presenter".EXT);  
+
 
 
 /* End of file autoload.php */
