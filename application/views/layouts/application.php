@@ -17,25 +17,36 @@
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="stylesheet" href="css/style.css?v=2">
-<script src="js/libs/modernizr-1.6.min.js"></script>
+<link rel="stylesheet" href="assets/less/bootstrap.css">
+<script src="assets/js/libs/modernizr-2.5.3.js"></script>
 
 </head>
 
 <body>
 
 <div id="container">
-	<header>
+	<div class="container">
+		<div class="row">
+			<header class="span12">
+				<?php $this->load->view('assets/_navigation'); ?>
+			</header>
+		</div>
+	</div>
 
-	</header>
 
 	<div id="main">
 		<?= $yield; ?>
 	</div>
 
-<footer>
 
-</footer>
+	<footer class="container">
+		<div class="row">
+			<div class="span12">
+				FOOTER!!!
+			</div>
+		</div>
+	</footer>
+      
 </div> <!--! end of #container -->
 
 
