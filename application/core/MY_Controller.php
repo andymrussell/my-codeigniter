@@ -61,6 +61,10 @@ class MY_Controller extends MX_Controller
         parent::__construct();
 
         $this->_load_models();
+
+        //Get any error messages
+        $this->get_messages();
+
     }
 
     /* --------------------------------------------------------------
@@ -92,7 +96,17 @@ class MY_Controller extends MX_Controller
         
         $this->_load_view();
     }
-    
+
+    public function get_messages()
+    {
+        $message = $this->session->flashdata('message');
+
+        if(isset($message))
+        {
+            $this->data['message'] = $message;
+        }
+    }
+
     /**
      * Automatically load the view, allowing the developer to override if
      * he or she wishes, otherwise being conventional.
