@@ -54,7 +54,7 @@ $autoload['packages'] = array(
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('format');
+$autoload['libraries'] = array('format','session');
 
 
 /*
@@ -66,7 +66,7 @@ $autoload['libraries'] = array('format');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('partial');
+$autoload['helper'] = array('partial', 'url');
 
 
 /*
@@ -139,7 +139,7 @@ $config['modules_locations'] = array(
 |	$autoload['sparks'] = array('spark1/v1.0.0', 'spark2');
 |
 */
-$autoload['sparks'] = array();
+$autoload['sparks'] = array('php-activerecord/0.0.2');
 
 
 @include_once(APPPATH."presenters/presenter".EXT);  

@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+define('SPARKPATH', 'sparks/');
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

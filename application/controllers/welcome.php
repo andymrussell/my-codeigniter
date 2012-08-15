@@ -2,23 +2,27 @@
 
 class Welcome extends MY_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+
 	public function index()
-	{
+	{	
+		// $data = Post::all();
+
+		$data = Post::find('all', array('include' => array('user') ));
+			
+		//Post::find('all', array('limit' => 10, 'include' => array('author')));
+		foreach($data as $item)
+		{
+			echo $item->title;
+			echo '<br/>';
+			echo $item->body;
+			echo '<br/>';
+			echo $item->user->name;
+			echo '<hr/>';
+
+		}
+
+		exit();
+
 		$this->data['title'] = 'testing';
 		$data->{'names'} = 'testing';
 		$this->data['temp'] = $this->load->presenter('Welcome_Presenter',$data);
