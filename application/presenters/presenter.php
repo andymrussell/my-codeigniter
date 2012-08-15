@@ -9,7 +9,7 @@ class Presenter
 	public function __construct($object)
 	{
 		$name = strtolower(str_replace("_presenter", "", get_class($this)));
-		$this->$name = $object;
+		$this->data = $object;
 	}
 
 	public function __get($attr)

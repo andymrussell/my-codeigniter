@@ -5,12 +5,7 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{	
-
-
-		$this->data['title'] = 'testing';
-		$data->{'names'} = 'testing';
-		$this->data['temp'] = $this->load->presenter('Welcome_Presenter',$data);
-
+		$this->data['title'] = 'Welcome!';
 	}
 }
 

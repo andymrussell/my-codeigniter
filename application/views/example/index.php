@@ -3,20 +3,19 @@
 	<div class="row">
 		<div class="span12">
 			This is the Example Controller! <br/>
-			<?php print_r($validation_errors); ?>
+			<?php //print_r($validation_errors); ?>
 			<?php
 
 			echo '<br/>';
-
-			foreach($data as $item)
+			
+			foreach($presenter->data as $key => $item)
 			{
-				echo $item->title;
+				echo $presenter->title($key);
 				echo '<br/>';
-				echo $item->body;
+				echo $presenter->body($key);
 				echo '<br/>';
-				echo $item->user->name;
+				echo '--'.$presenter->user_name($key);
 				echo '<hr/>';
-
 			}
 
 			?>
