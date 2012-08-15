@@ -28,7 +28,7 @@
 	<div class="container">
 		<div class="row">
 			<header class="span12">
-				<?php $this->load->view('assets/_navigation'); ?>
+				<?php //$this->load->view('assets/_navigation'); ?>
 			</header>
 		</div>
 	</div>
