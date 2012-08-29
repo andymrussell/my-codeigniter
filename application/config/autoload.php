@@ -66,7 +66,7 @@ $autoload['libraries'] = array('format','session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('partial', 'url');
+$autoload['helper'] = array('partial', 'url', 'date', 'form', 'ssl');
 
 
 /*
@@ -82,7 +82,7 @@ $autoload['helper'] = array('partial', 'url');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('tracking');
 
 
 /*

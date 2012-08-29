@@ -41,7 +41,12 @@ class MY_Controller extends MX_Controller
      * A list of models to be autoloaded
      */
     protected $models = array();
-    
+
+    /**
+    * Set if a page should be  SSL
+    */
+    public $ssl_page = FALSE;
+
     /**
      * A formatting string for the model autoloading feature.
      * The percent symbol (%) will be replaced with the model name.
@@ -60,11 +65,27 @@ class MY_Controller extends MX_Controller
     {
         parent::__construct();
 
+        //If the page is a SSL Page redirect to its place
+        if($this->ssl_page == true && $this->config->item('use_ssl') == true)
+        {
+            force_ssl();
+        }
+        else
+        {
+            remove_ssl();
+        }
+        
+        //Load the models
         $this->_load_models();
 
         //Get any error messages
-        $this->get_messages();
+        $this->_get_messages();
 
+        //Get any validation data / errors to pass back to the form
+        $this->_get_validation_errors();
+
+        //Check any session tracking paramaters that should be in here
+        $this->_session();
     }
 
     /* --------------------------------------------------------------
@@ -97,7 +118,11 @@ class MY_Controller extends MX_Controller
         $this->_load_view();
     }
 
-    public function get_messages()
+    /**
+     * Automatically check for any session messages, 
+     * and pass them to the view as $message.
+     */
+    private function _get_messages()
     {
         $message = $this->session->flashdata('message');
 
@@ -107,6 +132,48 @@ class MY_Controller extends MX_Controller
         }
     }
 
+    /**
+     * Automatically check for any validation errors, 
+     * and pass them to the view as $validation.
+     */
+    private function _get_validation_errors()
+    {
+        $validation = $this->session->flashdata('validation');
+        
+        if(isset($validation))
+        {
+            $this->data['validation'] = $validation;
+        }
+    }
+
+    /**
+     * Start a session and add any tracking paramaters to the session data
+     */
+    private function _session()
+    {
+        $tracking = (array) $this->session->userdata('tracking');
+        
+        $tracking_params = $this->config->item('tracking');
+
+        //If no tracking source is found already then get and save it here!
+        if(!isset($tracking['tracked']))
+        {
+            if(isset($tracking_params) && count($tracking_params))
+            {
+                $data['tracking']['tracked'] = TRUE;
+                foreach($tracking_params as $item){
+                    if($this->input->get($item))
+                        $data['tracking'][$item] = $this->input->get($item);    
+                }
+            }
+
+            if(isset($data))
+            {
+                $this->session->set_userdata($data);
+            }
+        }
+    }
+    
     /**
      * Automatically load the view, allowing the developer to override if
      * he or she wishes, otherwise being conventional.

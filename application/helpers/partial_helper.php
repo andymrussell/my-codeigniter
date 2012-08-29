@@ -1,8 +1,8 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
 
-function partial($name, $data, $loop = FALSE)
+function partial($name, $data = array(), $loop = FALSE)
 {
 	$module = FALSE;
 	if(strpos('/',$name) === FALSE)
@@ -42,7 +42,16 @@ function partial($name, $data, $loop = FALSE)
             {
                 get_instance()->load->_ci_view_path = APPPATH.$module_dir;
             }
-			$output .= get_instance()->load->view($name, array('row' => $row), TRUE);
+
+			if (file_exists(APPPATH . 'views/' . $name . '.php'))
+			{
+				$output .= get_instance()->load->view($name, array('row' => $row), TRUE);
+			}
+			else
+			{
+				$output .= '';
+				log_message('error', 'View Partial does not exist: ('.APPPATH . 'views/' . $name . '.php)');
+			}
 
             if($module == TRUE)
             {
@@ -56,7 +65,16 @@ function partial($name, $data, $loop = FALSE)
         {
             get_instance()->load->_ci_view_path = APPPATH.$module_dir;
         }
-		$output .= get_instance()->load->view($name, $data, TRUE);	
+
+		if (file_exists(APPPATH . 'views/' . $name . '.php'))
+		{
+			$output .= get_instance()->load->view($name, $data, TRUE);
+		}
+		else
+		{
+			$output .= '';
+			log_message('error', 'View Partial does not exist: ('.APPPATH . 'views/' . $name . '.php)');
+		}
 
         if($module == TRUE)
         {
