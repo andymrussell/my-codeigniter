@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2012, Jamie Rumbelow <http://jamierumbelow.net>
  */
 
-class MY_Controller extends MX_Controller
+class MY_Controller extends CI_Controller
 {    
 
     /* --------------------------------------------------------------

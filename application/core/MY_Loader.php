@@ -1,17 +1,13 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
-
-/* load the MX_Loader class */
-require APPPATH."third_party/MX/Loader.php";
-
+<?php  if (! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Sparks
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
- * @package		CodeIgniter
- * @author		CodeIgniter Reactor Dev Team
+ * @package     CodeIgniter
+ * @author      CodeIgniter Reactor Dev Team
  * @author      Kenny Katzgrau <katzgrau@gmail.com>
- * @since		CodeIgniter Version 1.0
+ * @since       CodeIgniter Version 1.0
  * @filesource
  */
 
@@ -20,14 +16,14 @@ require APPPATH."third_party/MX/Loader.php";
  *
  * Loads views and files
  *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @author		CodeIgniter Reactor Dev Team
+ * @package     CodeIgniter
+ * @subpackage  Libraries
+ * @author      CodeIgniter Reactor Dev Team
  * @author      Kenny Katzgrau <katzgrau@gmail.com>
- * @category	Loader
- * @link		http://codeigniter.com/user_guide/libraries/loader.html
+ * @category    Loader
+ * @link        http://codeigniter.com/user_guide/libraries/loader.html
  */
-class MY_Loader extends MX_Loader
+class MY_Loader extends CI_Loader
 {
     /**
      * Keep track of which sparks are loaded. This will come in handy for being
@@ -60,40 +56,38 @@ class MY_Loader extends MX_Loader
         parent::__construct();
     }
 
+    public function presenter($class = '', $data = array()) {
+        
 
-	public function presenter($class = '', $data = array()) {
-		
+        $module_dir = $this->router->directory;
+        $module_dir = str_replace('controllers/', '', $module_dir);
+        $module_dir = str_replace('../', '', $module_dir);
 
-		$module_dir = $this->router->directory;
-		$module_dir = str_replace('controllers/', '', $module_dir);
-		$module_dir = str_replace('../', '', $module_dir);
+        $found_path = FALSE;
 
-		$found_path = FALSE;
+        if (file_exists(APPPATH."presenters/".strtolower($class).EXT))
+        {  
+            $found_path = APPPATH."presenters/".strtolower($class).EXT;
+        }
+        elseif (file_exists(APPPATH.$module_dir."presenters/".strtolower($class).EXT))
+        {
+            $found_path = APPPATH.$module_dir."presenters/".strtolower($class).EXT;
+        }
 
-		if (file_exists(APPPATH."presenters/".strtolower($class).EXT))
-		{  
-			$found_path = APPPATH."presenters/".strtolower($class).EXT;
-		}
-		elseif (file_exists(APPPATH.$module_dir."presenters/".strtolower($class).EXT))
-		{
-			$found_path = APPPATH.$module_dir."presenters/".strtolower($class).EXT;
-		}
-
-		if($found_path !== FALSE)
-		{
-			@include_once($found_path);
-			return new $class($data);
-		}
+        if($found_path !== FALSE)
+        {
+            @include_once($found_path);
+            return new $class($data);
+        }
 
 
-		// if (file_exists(APPPATH."presenters/".strtolower($class).EXT)) {  
-		// 	@include_once(APPPATH."presenters/".strtolower($class).EXT);  
-		// }
+        // if (file_exists(APPPATH."presenters/".strtolower($class).EXT)) {  
+        //  @include_once(APPPATH."presenters/".strtolower($class).EXT);  
+        // }
 
-		// return new $class($data);
-	}
-
-	
+        // return new $class($data);
+    }
+    
     /**
      * To accomodate CI 2.1.0, we override the initialize() method instead of
      *  the ci_autoloader() method. Once sparks is integrated into CI, we
@@ -181,28 +175,28 @@ class MY_Loader extends MX_Loader
         return true;
     }
 
-	/**
-	 * Pre-CI 2.0.3 method for backward compatility.
-	 *
-	 * @param null $basepath
-	 * @return void
-	 */
-	function _ci_autoloader($basepath = NULL)
-	{
-		$this->ci_autoloader($basepath);
-	}
+    /**
+     * Pre-CI 2.0.3 method for backward compatility.
+     *
+     * @param null $basepath
+     * @return void
+     */
+    function _ci_autoloader($basepath = NULL)
+    {
+        $this->ci_autoloader($basepath);
+    }
 
-	/**
-	 * Specific Autoloader (99% ripped from the parent)
-	 *
-	 * The config/autoload.php file contains an array that permits sub-systems,
-	 * libraries, and helpers to be loaded automatically.
-	 *
-	 * @param array|null $basepath
-	 * @return void
-	 */
-	function ci_autoloader($basepath = NULL)
-	{
+    /**
+     * Specific Autoloader (99% ripped from the parent)
+     *
+     * The config/autoload.php file contains an array that permits sub-systems,
+     * libraries, and helpers to be loaded automatically.
+     *
+     * @param array|null $basepath
+     * @return void
+     */
+    function ci_autoloader($basepath = NULL)
+    {
         if($basepath !== NULL)
         {
             $autoload_path = $basepath.'config/autoload'.EXT;
@@ -217,12 +211,12 @@ class MY_Loader extends MX_Loader
             return FALSE;
         }
 
-		include($autoload_path);
+        include($autoload_path);
 
-		if ( ! isset($autoload))
-		{
-			return FALSE;
-		}
+        if ( ! isset($autoload))
+        {
+            return FALSE;
+        }
 
         if($this->_is_lt_210 || $basepath !== NULL)
         {
@@ -237,13 +231,13 @@ class MY_Loader extends MX_Loader
         }
 
         // Autoload sparks
-		if (isset($autoload['sparks']))
-		{
-			foreach ($autoload['sparks'] as $spark)
-			{
-				$this->spark($spark);
-			}
-		}
+        if (isset($autoload['sparks']))
+        {
+            foreach ($autoload['sparks'] as $spark)
+            {
+                $this->spark($spark);
+            }
+        }
 
         if($this->_is_lt_210 || $basepath !== NULL)
         {
@@ -299,5 +293,5 @@ class MY_Loader extends MX_Loader
                 $this->model($autoload['model']);
             }
         }
-	}
+    }
 }
